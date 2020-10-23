@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全局注册组件</title>
+</head>
+<body>
+    <div id="app">
+        <component-a></component-a>
+    </div>
+    <div id="app2">
+        <component-a></component-a>
+        <component-b></component-b>
+    </div>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script>
+        //全局注册，任何vue实例都可以使用
+        Vue.component('component-a',{
+            template:'<div><h1>头部组件-{{name}}</h1></div>',
+            data:function(){
+                return{
+                    name:'全局组件'
+                }
+            }
+        })
+        new Vue({
+            el:'#app'
+        })
+        var ComponentA={
+            data:function(){
+                return{
+                    name:'局部组件'
+                }
+            },
+            template:'<div>这是：{{name}}</div>'
+        }
+        new Vue({
+            el:'#app2',
+            components:{
+                'component-b': ComponentA 
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <p v-upper-text='msg'>{{msg}}</p>
+      自动获取焦点：<input type="text" v-focus>
+  </div>  
+  <div id="app2">
+    <p v-upper-text='msg'>{{msg}}</p>
+    自动获取焦点：<input type="text" v-focus>
+</div>  
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 第一个指令为指令名，但是不要v-开头,底层会自动添加，使用
+    //时要v-
+    Vue.directive('upper-text',{
+        // 一般对样式的操作在bind中，bind函数只调用一次
+        bind:function(el){
+            el.style.color='red'
+        },
+        //一般对js操作在inserted中，inserted也是只调用一次
+        // el是当前指令作用的那个dom元素
+        // binding用于获取使用了当前指令的绑定值，表达式，指令名等
+        inserted:function(el,binding){
+            //将字母文本内容转换成大写，
+           el.innerHTML= binding.value.toUpperCase()
+        }
+    })
+    new Vue({
+        el:'#app',
+        data:{
+          msg:"mengxuegu,陪你学习伴你成长"
+        },
+        // 局部注册指令
+        directives:{
+            'focus':{
+                inserted:function(el,binding){
+                    //刷新页面自动获取焦点
+                    //被v-focus作用的元素在刷新页面的时候会自动获取焦点
+                    el.focus()
+                }
+            }
+        }
+    })
+    new Vue({
+        el:'#app2',
+        data:{
+          msg:"mengxuegu,陪你学习伴你成长"
+        }
+       
+    })
+</script>
+</html>

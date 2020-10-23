@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-clock]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" c-clock>
+        <!-- 
+            v-pre 用于显示{{}} 
+            跳过这个元素和他的子元素的编译过程，提高性能
+        -->
+        <span v-pre>{{ddddddd}}</span>
+        <!-- v-text,等价于{{}}
+            使用{{}},会有闪烁问题，
+            可以使用v-text解决闪烁问题，
+            如果需要{{}},但不想要闪烁问题，可以使用v-clock
+        -->
+        <h3>{{msg}}</h3>
+        <h3>{{msg}}</h3>
+        <h3>{{msg}}</h3>
+        <h3 v-text='msg'></h3>
+        <h3 v-text='msg'></h3>
+        <h3 v-text='msg'></h3>
+
+        <h3>{{msg}}</h3>
+        <h3>{{msg}}</h3>
+        <h3>{{msg}}</h3>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+          msg:"dddddd"
+        }
+    })
+</script>
+</html>
